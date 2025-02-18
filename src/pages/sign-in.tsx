@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { signInWithEmailAndPassword } from "firebase/auth";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -18,7 +17,6 @@ import { Input } from "@/components/ui/input";
 import { Link, useNavigate } from "react-router-dom";
 import GoogleButton from "@/components/GoogleButton";
 import { toast } from "sonner";
-import { firebaseAuth } from "@/lib/config";
 
 const SigninValidation = z.object({
   email: z.string().email({
@@ -52,18 +50,7 @@ const SignInForm = () => {
   // If the sign in fails, log an error message to the console, display an error toast with the error message,
   // and stay on the same page.
   async function onSubmit(values: z.infer<typeof SigninValidation>) {
-    signInWithEmailAndPassword(firebaseAuth, values.email, values.password)
-      .then(() => {
-        console.log("User signed in successfully");
-        toast.success("User signed in successfully");
-        navigate("/profile");
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error("User signed in failed", {
-          description: error.message,
-        });
-      });
+    // Add code over here
     console.log(values);
   }
   return (
